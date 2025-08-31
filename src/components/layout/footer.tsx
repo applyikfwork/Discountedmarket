@@ -1,107 +1,124 @@
 import Link from 'next/link';
-import { Twitter, Facebook, Instagram } from 'lucide-react';
+import { Twitter, Facebook, Instagram, Send } from 'lucide-react';
 import Logo from '@/components/logo';
+import { Button } from '@/components/ui/button';
 
 export default function Footer() {
   return (
     <footer className="bg-background border-t">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid gap-8 md:grid-cols-3">
-          <div className="space-y-4">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-3 space-y-4">
             <Logo />
             <p className="text-sm text-muted-foreground">
-              Your one-stop shop for amazing discounts on the best products.
+              Discounted Market is your one-stop shop for the best deals on the
+              internet, curated with the power of AI to bring you savings you
+              can trust.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-8 md:col-span-2 md:grid-cols-3">
-            <div>
-              <h3 className="font-headline font-semibold text-foreground">
-                Shop
-              </h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Electronics
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Fashion
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Home Goods
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Books
-                  </Link>
-                </li>
-              </ul>
+
+          <div className="md:col-span-2">
+            <h3 className="font-headline font-semibold text-foreground mb-4">
+              Quick Links
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  href="/"
+                  className="text-muted-foreground hover:text-primary"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="text-muted-foreground hover:text-primary"
+                >
+                  Daily Deals
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="text-muted-foreground hover:text-primary"
+                >
+                  Trending
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="text-muted-foreground hover:text-primary"
+                >
+                  Search
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-2">
+            <h3 className="font-headline font-semibold text-foreground mb-4">
+              Legal
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  href="#"
+                  className="text-muted-foreground hover:text-primary"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className="text-muted-foreground hover:text-primary"
+                >
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-2">
+            <h3 className="font-headline font-semibold text-foreground mb-4">
+              Connect With Us
+            </h3>
+            <div className="flex items-center gap-4">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <Facebook className="h-5 w-5" />
+              </Link>
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <Twitter className="h-5 w-5" />
+              </Link>
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <Instagram className="h-5 w-5" />
+              </Link>
             </div>
-            <div>
-              <h3 className="font-headline font-semibold text-foreground">
-                About
-              </h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Press
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-headline font-semibold text-foreground">
-                Support
-              </h3>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary">
-                    Shipping & Returns
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          </div>
+          <div className="md:col-span-3">
+             <h3 className="font-headline font-semibold text-foreground mb-4">
+              Promote Your Brand
+            </h3>
+             <Button>
+              <Send className='mr-2 h-4 w-4' />
+              Partner With Us</Button>
           </div>
         </div>
-        <div className="mt-8 flex flex-col items-center justify-between border-t border-border pt-6 sm:flex-row">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Discounted Market. All rights reserved.
-          </p>
-          <div className="mt-4 flex items-center gap-4 sm:mt-0">
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Twitter className="h-5 w-5" />
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Facebook className="h-5 w-5" />
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Instagram className="h-5 w-5" />
-            </Link>
-          </div>
+
+        <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
+          <p>© {new Date().getFullYear()} Discounted Market. All Rights Reserved.</p>
+          <p>As an affiliate, we may earn from qualifying purchases.</p>
         </div>
       </div>
     </footer>
