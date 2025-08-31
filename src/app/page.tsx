@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { onSnapshot, collection } from 'firebase/firestore';
+import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
-import { CATEGORIES } from '@/lib/products';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -17,25 +16,53 @@ import FeatureCards from '@/components/feature-cards';
 import DailyDeals from '@/components/daily-deals';
 import ProductCard from '@/components/product-card';
 import HeroCarousel from '@/components/hero-carousel';
-import type { Product } from '@/lib/types';
+import type { Product, Category } from '@/lib/types';
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
   useEffect(() => {
     const productsRef = collection(db, 'products');
-    const unsubscribe = onSnapshot(productsRef, (snapshot) => {
+    const unsubscribeProducts = onSnapshot(productsRef, (snapshot) => {
       const productsData: Product[] = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...(doc.data() as Omit<Product, 'id'>),
       }));
-      setProducts(productsData);
-      setLoading(false);
+      setAllProducts(productsData);
+      setFilteredProducts(productsData);
+      setLoadingProducts(false);
     });
 
-    return () => unsubscribe();
+    const categoriesRef = collection(db, 'categories');
+    const unsubscribeCategories = onSnapshot(categoriesRef, (snapshot) => {
+      const categoriesData: Category[] = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Category, 'id'>),
+      }));
+      setCategories(categoriesData.sort((a, b) => a.name.localeCompare(b.name)));
+      setLoadingCategories(false);
+    });
+
+    return () => {
+      unsubscribeProducts();
+      unsubscribeCategories();
+    };
   }, []);
+
+  useEffect(() => {
+    if (selectedCategory === 'all') {
+      setFilteredProducts(allProducts);
+    } else {
+      setFilteredProducts(
+        allProducts.filter((p) => p.category === selectedCategory)
+      );
+    }
+  }, [selectedCategory, allProducts]);
 
   return (
     <>
@@ -67,26 +94,30 @@ export default function Home() {
             </h2>
             <div className="flex items-center gap-4">
               <span className="text-sm font-medium">Filter by category:</span>
-              <Select>
+              <Select
+                onValueChange={setSelectedCategory}
+                defaultValue="all"
+                disabled={loadingCategories}
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  {CATEGORIES.map((category) => (
-                    <SelectItem key={category} value={category.toLowerCase()}>
-                      {category}
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.name}>
+                      {category.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
           </div>
-          {loading ? (
+          {loadingProducts ? (
             <p>Loading products...</p>
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

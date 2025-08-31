@@ -7,6 +7,7 @@ export type Product = {
   category: string;
   imageUrl: string;
   imageHint: string;
+  affiliateUrl: string; // Added affiliate link
   isDailyDeal?: boolean;
   isTrending?: boolean;
 };

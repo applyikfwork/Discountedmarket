@@ -5,11 +5,12 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Star, ShoppingCart, Tag } from 'lucide-react';
+import { Star, Tag, ExternalLink } from 'lucide-react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
 import type { Product } from '@/lib/types';
 import { getDiscountedPrice } from '@/lib/products';
+import Link from 'next/link';
 
 type ProductPageProps = {
   params: {
@@ -99,9 +100,11 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
 
           <div className="mt-auto pt-8">
-            <Button size="lg" className="w-full">
-              <ShoppingCart className="mr-2 h-5 w-5" />
-              Add to Cart
+            <Button size="lg" className="w-full" asChild>
+                <Link href={product.affiliateUrl} target="_blank">
+                    <ExternalLink className="mr-2 h-5 w-5" />
+                    Buy Now
+                </Link>
             </Button>
           </div>
         </div>

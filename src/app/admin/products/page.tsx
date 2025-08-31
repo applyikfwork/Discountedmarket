@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/table';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -53,6 +54,7 @@ export default function ProductsPage() {
             <TableHead>Category</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Discount</TableHead>
+            <TableHead>Affiliate Link</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -74,6 +76,11 @@ export default function ProductsPage() {
               </TableCell>
               <TableCell>${product.price.toFixed(2)}</TableCell>
               <TableCell>{product.discountPercentage}%</TableCell>
+              <TableCell>
+                <Link href={product.affiliateUrl} target="_blank" className="text-blue-600 hover:underline">
+                  View Link
+                </Link>
+              </TableCell>
               <TableCell>
                 <Button variant="outline" size="sm">
                   Edit
