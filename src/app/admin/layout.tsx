@@ -80,21 +80,27 @@ export default function AdminLayout({
           <SidebarContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/admin" isActive>
-                  <Home />
-                  Dashboard
+                <SidebarMenuButton href="/admin" asChild>
+                  <Link href="/admin">
+                    <Home />
+                    Dashboard
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/admin/categories">
-                  <SlidersHorizontal />
-                  Categories
+                 <SidebarMenuButton asChild>
+                  <Link href="/admin/categories">
+                    <SlidersHorizontal />
+                    Categories
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/admin/products">
-                  <Package />
-                  Products
+                <SidebarMenuButton asChild>
+                  <Link href="/admin/products">
+                    <Package />
+                    Products
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>

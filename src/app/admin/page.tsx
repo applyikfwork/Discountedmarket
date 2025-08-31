@@ -110,7 +110,7 @@ const adminFeatures = [
       'Modify the look and feel of the website, including colors and typography.',
     icon: Palette,
     buttonText: 'Customize Theme',
-    href: '#',
+    href: '/admin/theme',
   },
   {
     title: 'User Management',
@@ -118,7 +118,7 @@ const adminFeatures = [
       'View and manage user accounts. (Placeholder for future enhancements).',
     icon: Users,
     buttonText: 'Manage Users',
-    href: '#',
+    href: '/admin/user-management',
   },
 ];
 
