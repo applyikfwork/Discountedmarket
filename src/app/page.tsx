@@ -33,6 +33,7 @@ import FeatureCards from '@/components/feature-cards';
 import DailyDeals from '@/components/daily-deals';
 import TrendingProducts from '@/components/trending-products';
 import ProductCard from '@/components/product-card';
+import HeroCarousel from '@/components/hero-carousel';
 
 export default function Home() {
   const products = getProducts();
@@ -40,7 +41,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
-        <section className="bg-background w-full py-20 md:py-32">
+        <section className="bg-background w-full py-12 md:py-24">
           <div className="container mx-auto text-center px-4 md:px-6">
             <h1 className="text-4xl md:text-6xl font-bold text-primary mb-4">
               Welcome to Discounted Market
@@ -56,6 +57,7 @@ export default function Home() {
           </div>
         </section>
 
+        <HeroCarousel />
         <FeatureCards />
         <div className="container mx-auto px-4 md:px-6">
           <DailyDeals />
