@@ -12,7 +12,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
-import { app } from '@/lib/firebase';
+import { app } from '@/lib/firebase/config';
+import { ADMIN_EMAILS } from '@/lib/constants';
 
 const auth = getAuth(app);
 
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setIsAdmin(user?.email === 'xyzapplywork@gmail.com');
+      setIsAdmin(user ? ADMIN_EMAILS.includes(user.email!) : false);
       setLoading(false);
     });
     return () => unsubscribe();

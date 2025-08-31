@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/hooks/use-auth.tsx';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import { AuthProvider } from '@/hooks/use-auth.tsx';
 
 export const metadata: Metadata = {
   title: 'Discounted Market',

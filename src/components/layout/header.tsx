@@ -33,19 +33,19 @@ export default function Header() {
 
   const navLinks = (
     <>
-      <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+      <Link href="/daily-deals" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
         Daily Deals
       </Link>
-      <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+      <Link href="/festival-deals" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
         Festival
       </Link>
-      <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+      <Link href="/trending" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
         Trending
       </Link>
-      <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+      <Link href="/offers" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
         Offers
       </Link>
-      <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+      <Link href="/deals" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
         Sasta Maal
       </Link>
        {isAdmin && (

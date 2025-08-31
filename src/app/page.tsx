@@ -1,10 +1,4 @@
-import Link from 'next/link';
-import {
-  getProductById,
-  getProducts,
-  Product,
-  CATEGORIES,
-} from '@/lib/products';
+import { CATEGORIES, getProducts } from '@/lib/products';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -13,22 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import {
-  Flame,
-  Gift,
-  HandCoins,
-  Sparkles,
-  TrendingUp,
-  Box,
-} from 'lucide-react';
+import { Box } from 'lucide-react';
 import FeatureCards from '@/components/feature-cards';
 import DailyDeals from '@/components/daily-deals';
 import ProductCard from '@/components/product-card';
@@ -38,8 +17,7 @@ export default function Home() {
   const products = getProducts();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex-1">
+    <>
         <section className="bg-background w-full py-12 md:py-24">
           <div className="container mx-auto text-center px-4 md:px-6">
             <h1 className="text-4xl md:text-6xl font-bold text-primary mb-4">
@@ -60,7 +38,7 @@ export default function Home() {
         <FeatureCards />
         <div className="container mx-auto px-4 md:px-6">
           <DailyDeals />
-          
+
           <section id="all-products" className="my-16">
             <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
               <h2 className="font-headline text-4xl font-bold text-primary">
@@ -95,7 +73,6 @@ export default function Home() {
             </div>
           </section>
         </div>
-      </main>
-    </div>
+    </>
   );
 }
