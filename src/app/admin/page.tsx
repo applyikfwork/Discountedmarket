@@ -4,60 +4,88 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter
 } from '@/components/ui/card';
-import { DollarSign, Package, ShoppingCart, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, BookOpen, UploadCloud, Package, SlidersHorizontal, LayoutTemplate, Palette } from 'lucide-react';
+import Link from 'next/link';
+
+const adminFeatures = [
+    {
+        title: "App Details & Docs",
+        description: "Comprehensive documentation about the app's architecture, features, and tech stack.",
+        icon: BookOpen,
+        buttonText: "View Details",
+        href: "#"
+    },
+    {
+        title: "Product Management",
+        description: "Add, edit, and manage your affiliate products one by one. Update details, images, and affiliate links.",
+        icon: Package,
+        buttonText: "Manage Products",
+        href: "/admin/products"
+    },
+    {
+        title: "Bulk Product Upload",
+        description: "Efficiently add or update multiple products at once by uploading a formatted Google Sheet.",
+        icon: UploadCloud,
+        buttonText: "Go to Bulk Upload",
+        href: "/admin/bulk-upload"
+    },
+    {
+        title: "Category Management",
+        description: "Organize products by creating and managing a hierarchical category structure to improve navigation.",
+        icon: SlidersHorizontal,
+        buttonText: "Manage Categories",
+        href: "/admin/categories"
+    },
+    {
+        title: "Indicator Management",
+        description: "Control promotional indicators (e.g., 'New', 'Hot') that appear on product cards across the site.",
+        icon: SlidersHorizontal,
+        buttonText: "Configure Indicators",
+        href: "#"
+    },
+    {
+        title: "Homepage Sections",
+        description: "Enable, disable, and customize the quick-access promotional cards on the homepage.",
+        icon: LayoutTemplate,
+        buttonText: "Edit Sections",
+        href: "#"
+    }
+];
 
 export default function AdminDashboard() {
   return (
-    <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-          <DollarSign className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">$45,231.89</div>
-          <p className="text-xs text-muted-foreground">
-            +20.1% from last month
-          </p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Sales</CardTitle>
-          <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">+2350</div>
-          <p className="text-xs text-muted-foreground">
-            +180.1% from last month
-          </p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Products</CardTitle>
-          <Package className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">1,254</div>
-          <p className="text-xs text-muted-foreground">
-            +19% from last month
-          </p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-          <Users className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">+573</div>
-          <p className="text-xs text-muted-foreground">
-            +201 since last hour
-          </p>
-        </CardContent>
-      </Card>
+    <div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Welcome, Admin!</h1>
+        <p className="text-muted-foreground">
+          This is the central hub for managing the Discounted Market platform. Use the sidebar to navigate to different sections.
+        </p>
+      </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {adminFeatures.map((feature) => (
+            <Card key={feature.title} className="flex flex-col">
+                <CardHeader className='flex-row items-start gap-4 space-y-0'>
+                    <div className="p-3 bg-primary/10 rounded-md">
+                        <feature.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                        <CardTitle>{feature.title}</CardTitle>
+                        <CardDescription className='mt-1'>{feature.description}</CardDescription>
+                    </div>
+                </CardHeader>
+                <CardFooter className="mt-auto">
+                    <Button asChild className='w-full'>
+                        <Link href={feature.href}>
+                            {feature.buttonText} <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+        ))}
+      </div>
     </div>
   );
 }
