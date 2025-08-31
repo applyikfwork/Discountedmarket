@@ -18,6 +18,11 @@ import {
   SlidersHorizontal,
   Info,
   LineChart,
+  Palette,
+  Gavel,
+  Megaphone,
+  FileText,
+  Send,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -69,7 +74,7 @@ export default function AdminLayout({
         <Sidebar>
           <SidebarHeader>
             <div className="p-4 flex items-center gap-2">
-              <Logo />
+              <Logo isAdmin />
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -80,57 +85,9 @@ export default function AdminLayout({
                   Dashboard
                 </SidebarMenuButton>
               </SidebarMenuItem>
-               <SidebarMenuItem>
-                <SidebarMenuButton href="#">
-                  <Info />
-                  App Details
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton href="#">
-                  <SlidersHorizontal />
-                  Indicator Management
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-               <SidebarMenuItem>
-                <SidebarMenuButton href="#">
-                  <LayoutTemplate />
-                  Homepage Sections
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-               <SidebarMenuItem>
-                <SidebarMenuButton href="#">
-                  <Ticket />
-                  Carousel
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton href="/admin/daily-deals">
-                  <Ticket />
-                  Daily Deals
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton href="#">
-                  <Gift />
-                  Festival Mgmt
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton href="#">
-                  <TrendingUp />
-                  Trending Mgmt
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton href="#">
-                  <Award />
-                  Top Offers Mgmt
-                </SidebarMenuButton>
-              </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton href="/admin/categories">
-                  <ShoppingBag />
+                  <SlidersHorizontal />
                   Categories
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -146,17 +103,59 @@ export default function AdminLayout({
                   Bulk Upload
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <Send />
+                  Sasta Maal
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <FileText />
+                  Footer Mgmt
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <Megaphone />
+                  Promoter Requests
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <Gavel />
+                  Legal Pages
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="/admin/analytics">
+                  <LineChart />
+                  Analytics
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <Palette />
+                  Theme
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="#">
+                  <Users />
+                  User Management
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarContent>
           <SidebarFooter>
-             <SidebarMenu>
-                 <SidebarMenuItem>
-                    <SidebarMenuButton onClick={handleLogout}>
-                        <LogOut />
-                        Logout
-                    </SidebarMenuButton>
-                 </SidebarMenuItem>
-             </SidebarMenu>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={handleLogout}>
+                  <LogOut />
+                  Logout
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
         <main className="flex-1 bg-muted/40 p-4 md:p-8">{children}</main>
