@@ -30,6 +30,9 @@ import {
   Box,
 } from 'lucide-react';
 import FeatureCards from '@/components/feature-cards';
+import DailyDeals from '@/components/daily-deals';
+import TrendingProducts from '@/components/trending-products';
+import ProductCard from '@/components/product-card';
 
 export default function Home() {
   const products = getProducts();
@@ -54,6 +57,44 @@ export default function Home() {
         </section>
 
         <FeatureCards />
+        <div className="container mx-auto px-4 md:px-6">
+          <DailyDeals />
+          <TrendingProducts />
+
+          <section id="all-products" className="my-16">
+            <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
+              <h2 className="font-headline text-4xl font-bold text-primary">
+                All Products
+              </h2>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium">
+                  Filter by category:
+                </span>
+                <Select>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="All Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Categories</SelectItem>
+                    {CATEGORIES.map((category) => (
+                      <SelectItem
+                        key={category}
+                        value={category.toLowerCase()}
+                      >
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   );
