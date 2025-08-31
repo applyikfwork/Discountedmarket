@@ -31,7 +31,6 @@ import {
 } from 'lucide-react';
 import FeatureCards from '@/components/feature-cards';
 import DailyDeals from '@/components/daily-deals';
-import TrendingProducts from '@/components/trending-products';
 import ProductCard from '@/components/product-card';
 import HeroCarousel from '@/components/hero-carousel';
 
@@ -61,8 +60,7 @@ export default function Home() {
         <FeatureCards />
         <div className="container mx-auto px-4 md:px-6">
           <DailyDeals />
-          <TrendingProducts />
-
+          
           <section id="all-products" className="my-16">
             <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
               <h2 className="font-headline text-4xl font-bold text-primary">
