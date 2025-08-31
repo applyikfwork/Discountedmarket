@@ -1,9 +1,15 @@
-import { getProductById, getDiscountedPrice } from '@/lib/products';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, ShoppingCart, Tag } from 'lucide-react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase/config';
+import type { Product } from '@/lib/types';
+import { getDiscountedPrice } from '@/lib/products';
 
 type ProductPageProps = {
   params: {
@@ -12,7 +18,30 @@ type ProductPageProps = {
 };
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductById(params.id);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const productRef = doc(db, 'products', params.id);
+    const unsubscribe = onSnapshot(productRef, (doc) => {
+      if (doc.exists()) {
+        setProduct({ id: doc.id, ...doc.data() } as Product);
+      } else {
+        setProduct(null); // Or handle as not found
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [params.id]);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        Loading product...
+      </div>
+    );
+  }
 
   if (!product) {
     notFound();

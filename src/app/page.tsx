@@ -1,4 +1,9 @@
-import { CATEGORIES, getProducts } from '@/lib/products';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { onSnapshot, collection } from 'firebase/firestore';
+import { db } from '@/lib/firebase/config';
+import { CATEGORIES } from '@/lib/products';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -12,67 +17,82 @@ import FeatureCards from '@/components/feature-cards';
 import DailyDeals from '@/components/daily-deals';
 import ProductCard from '@/components/product-card';
 import HeroCarousel from '@/components/hero-carousel';
+import type { Product } from '@/lib/types';
 
 export default function Home() {
-  const products = getProducts();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const productsRef = collection(db, 'products');
+    const unsubscribe = onSnapshot(productsRef, (snapshot) => {
+      const productsData: Product[] = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Product, 'id'>),
+      }));
+      setProducts(productsData);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
-        <section className="bg-background w-full py-12 md:py-24">
-          <div className="container mx-auto text-center px-4 md:px-6">
-            <h1 className="text-4xl md:text-6xl font-bold text-primary mb-4">
-              Welcome to Discounted Market
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              Discover AI-curated products and personalized recommendations at
-              unbeatable prices. We find the best, so you don't have to.
-            </p>
-            <Button size="lg">
-              <Box className="mr-2 h-5 w-5" />
-              Explore Products
-            </Button>
-          </div>
-        </section>
+      <section className="bg-background w-full py-12 md:py-24">
+        <div className="container mx-auto text-center px-4 md:px-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-primary mb-4">
+            Welcome to Discounted Market
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Discover AI-curated products and personalized recommendations at
+            unbeatable prices. We find the best, so you don't have to.
+          </p>
+          <Button size="lg">
+            <Box className="mr-2 h-5 w-5" />
+            Explore Products
+          </Button>
+        </div>
+      </section>
 
-        <HeroCarousel />
-        <FeatureCards />
-        <div className="container mx-auto px-4 md:px-6">
-          <DailyDeals />
+      <HeroCarousel />
+      <FeatureCards />
+      <div className="container mx-auto px-4 md:px-6">
+        <DailyDeals />
 
-          <section id="all-products" className="my-16">
-            <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
-              <h2 className="font-headline text-4xl font-bold text-primary">
-                All Products
-              </h2>
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-medium">
-                  Filter by category:
-                </span>
-                <Select>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="All Categories" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    {CATEGORIES.map((category) => (
-                      <SelectItem
-                        key={category}
-                        value={category.toLowerCase()}
-                      >
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+        <section id="all-products" className="my-16">
+          <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
+            <h2 className="font-headline text-4xl font-bold text-primary">
+              All Products
+            </h2>
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium">Filter by category:</span>
+              <Select>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {CATEGORIES.map((category) => (
+                    <SelectItem key={category} value={category.toLowerCase()}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
+          </div>
+          {loading ? (
+            <p>Loading products...</p>
+          ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
-          </section>
-        </div>
+          )}
+        </section>
+      </div>
     </>
   );
 }
